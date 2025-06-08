@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * @author: SMY
@@ -29,19 +30,42 @@ public class _144_binary_tree_preorder_traversal {
         }
     }
 
+    // 递归
+//    public List<Integer> preorderTraversal(TreeNode root) {
+//        List<Integer> list = new ArrayList<>();
+//        preOrder(root, list);
+//        return list;
+//    }
+//
+//    private void preOrder(TreeNode root, List<Integer> list) {
+//        if(root == null){
+//            return;
+//        }
+//        list.add(root.val);
+//        preOrder(root.left, list);
+//        preOrder(root.right, list);
+//    }
+
+    // 迭代
     public List<Integer> preorderTraversal(TreeNode root) {
         List<Integer> list = new ArrayList<>();
-        preOrder(root, list);
+        if(root == null) return list;
+
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+
+        while(!stack.isEmpty()){
+
+            TreeNode node = stack.pop();
+            list.add(node.val);
+
+            if (node.right != null) stack.push(node.right);
+            if (node.left != null) stack.push(node.left);
+
+        }
+
         return list;
     }
 
-    private void preOrder(TreeNode root, List<Integer> list) {
-        if(root == null){
-            return;
-        }
-        list.add(root.val);
-        preOrder(root.left, list);
-        preOrder(root.right, list);
-    }
 
 }
